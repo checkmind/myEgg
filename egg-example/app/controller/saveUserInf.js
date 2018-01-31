@@ -3,8 +3,10 @@
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
-  async index() {
-  	await this.ctx.render('index.tpl',{ctx:this.ctx})
+  async info(ctx) {
+  	console.log(ctx.request.body)
+  	ctx.body = `body: ${JSON.stringify(ctx.request.body)}`;
+    
   }
 }
 
