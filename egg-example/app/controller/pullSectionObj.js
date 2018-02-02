@@ -3,8 +3,10 @@
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
-  async info(ctx) {
-    ctx.body = await this.service.api.checkName(ctx.request.body.username)
+  async info() {
+    this.ctx.body = {
+    	name: `hello user:${this.ctx.params.id} your name is ${this.ctx.params.name}`
+    }
   }
 }
 

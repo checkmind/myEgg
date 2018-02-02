@@ -8,15 +8,17 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = ['gzip'];
-
+  // mongodb
+  config.mongoose = {
+  	url: 'mongodb://127.0.0.1:27017/example',
+  	options: {}
+  }
   // view 目录
   config.view = {
     root: [
       path.join(appInfo.baseDir, 'app/view')
     ].join(','),
-    
     defaultViewEngine: 'nunjucks',
-    
   };
 
   return config;
