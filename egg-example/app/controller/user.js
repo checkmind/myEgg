@@ -3,6 +3,7 @@
 const Controller = require('egg').Controller;
 // 刷新数组的时间
 const interTime = 1000 * 60 * 60
+const maxInter = 3000
 let allMessage = []
 /* 暂时用setTime实现，每隔一小时刷新一次allMessage */
 setInterval(()=>{

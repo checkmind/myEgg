@@ -9,7 +9,8 @@
     "egg": "^2.0.0",
     "egg-mongoose": "^2.1.1",
     "egg-scripts": "^2.1.0",
-    "egg-view-nunjucks": "^2.1.4"
+    "egg-view-nunjucks": "^2.1.4",
+    "lru-cache": "^4.1.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",

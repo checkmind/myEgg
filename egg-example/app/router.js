@@ -10,5 +10,5 @@ module.exports = app => {
   router.post('/saveUserInf', controller.saveUserInf.info);
 
   router.post('/signIn', controller.user.newUser);
-  router.get('/getCode', controller.user.checkPhone);
+  router.get('/getCode', controller.code.checkPhone);
 };
