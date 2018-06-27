@@ -3,6 +3,12 @@
 <head>
 	<title> egg 实例?? </title>
 </head>
+<style>
+	input {
+		margin-top:40px;
+		display:block;
+	}
+</style>
 <body>
 	<form action="/signIn" method="post">
 			<input type="text" name="username" />

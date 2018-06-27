@@ -1,0 +1,122 @@
+
+.Chatting{
+	height: 100%;
+	width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+.Chatting .header{
+	justify-content:flex-start;
+    h3{
+        margin-left: .2rem;
+    }
+}
+
+.Chatting .bodyer{
+	overflow: auto;
+    width: 100%;
+    flex:1;
+    box-sizing: border-box;
+    padding:.18rem;
+    li{
+    	width: 100%;
+    	display: flex;
+    	margin-top: 20px;
+    	line-height: 30px;
+    	.img{
+    		flex-basis: auto;
+    		flex-grow: 0;
+    		flex-shrink:0;
+    		height: 40px;
+    		width: 40px;
+    		border:1px solid #ccc;
+    	}
+    	.words{
+    		background: white;
+    		border-radius: 5px;
+    		padding:5px;
+    		z-index: 2;
+    		position: relative;
+    		box-sizing: border-box;
+    		border:1px solid #ccc;
+    	}
+    	.words:after{
+    		content: '';
+    		width: 10px;
+    		height: 10px;
+    		background: inherit;
+    		position: absolute;
+    		top: 20px;
+    		z-index: 1;
+    		transform:rotate(45deg);
+    		border:1px solid #ccc;
+    		border-right: 0;
+    		border-top: 0;
+    	}
+    }
+    li.left{
+    	flex-direction: row-reverse;
+    }
+    li.right .words{
+    	margin-left: 10px;	
+    	&:after{
+    		left: -6px;	
+    	}
+	}
+	li.left .words{
+		margin-right: 10px;
+		&:after{
+    		right: -6px;
+    		transform:rotate(-135deg);
+    	}
+	}
+
+}
+.Chatting .footer{
+	padding-right: 40px;
+    height: 60px;
+    a{
+    	display: flex;
+    	width: 30px;
+    	height: 30px;
+    	line-height: 30px;
+    	border-radius: 50%;
+    	border:1px solid #985125;
+    	margin:0 10px 0;
+    	justify-content:center;
+    	align-items:center;
+    	box-sizing: border-box;
+    	position: relative;
+    }
+    a:nth-child(1){
+    	display: block;
+    }
+    a:nth-child(4){
+    	position: absolute;
+    	right: 0;
+        top: 50%;
+        margin-top: -15px;
+    	transition:width .3s, right .3s;
+    }
+    input{
+    	flex:1;
+    	height: 30px;
+    	border:0;
+    	border-bottom: 3px solid #985125;
+    	padding:0 10px 0;
+        background: none;
+    }
+    .more{
+    	font-size: 25px;
+    }
+    a.send{
+    	font-size: 12px;
+    	width: 40px;
+    	border-radius: 5px;
+    	margin-left: 0;
+    	right: -5px;
+    }
+
+}
+

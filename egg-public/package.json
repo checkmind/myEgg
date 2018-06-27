@@ -1,0 +1,29 @@
+{
+  "name": "my-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "immutable": "^3.8.2",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "scripts": {
+    "start": "node scripts/start",
+    "build": "node scripts/build",
+    "test": "node scripts/test --env=jsdom",
+    "eject": "node scripts/eject"
+  },
+  "devDependencies": {
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5"
+  },
+  "homepage":"."
+}

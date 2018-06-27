@@ -10,16 +10,20 @@ module.exports = appInfo => {
   config.middleware = ['gzip'];
   // mongodb
   config.mongoose = {
-  	url: 'mongodb://127.0.0.1:27017/example',
-  	options: {}
+    url: 'mongodb://127.0.0.1:27017/duhao',
+    options: {
+      user: "duhao",
+      pass: "123456"
+    }
   }
   // view 目录
   config.view = {
     root: [
-      path.join(appInfo.baseDir, 'app/view')
+      path.join(appInfo.baseDir, 'app/public')
     ].join(','),
     defaultViewEngine: 'nunjucks',
   };
+
 
   return config;
 };
