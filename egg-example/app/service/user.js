@@ -1,5 +1,5 @@
-const service  = require('egg').Service
-const maxInter = 60*1000
+const service = require('egg').Service
+const maxInter = 60 * 1000
 
 
 class Api extends service {
@@ -8,21 +8,23 @@ class Api extends service {
 		code: 验证码
 		time: 创建时间
 	*/
-	singUser (ctx) {
-	 	
-		// return this.ctx.model.Api.insertMany({
-		// 	username: name
-		// })
+	async singUser(ctx) {
+		return (await this.ctx.model.User({
+			username: "duhao",
+			password: 123,
+			//password: md5(user.password, this.config.md5Key),
+			phoneNumber: 17826833487
+		}).save()).toObject()
 	}
 	/* 获取验证码 */
 	async checkPhone(random, phone) {
-		await this.service.sendMessage.send(phone,random)
+		await this.service.sendMessage.send(phone, random)
 		return {
 			statu: 1,
 			msg: '短信已发到您的手机，请注意查收！'
 		}
 	}
 
-	
+
 }
 module.exports = Api

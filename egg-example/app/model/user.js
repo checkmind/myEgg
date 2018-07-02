@@ -1,15 +1,21 @@
 module.exports = app => {
-  const mongoose = app.mongoose
-  const Schema = mongoose.Schema
-  
-  const ApiSchema = mongoose.Schema({
-		pptName : { type : String ,required :  true },
-		pptCreateDate : Date,
-		pptLastAlterDate : Date,
-		public : Boolean,
-		psWord : String,
-		sectionObj : [Schema.Types.Mixed]
+	const mongoose = app.mongoose
+	const Schema = mongoose.Schema
+
+	const UserSchema = new Schema({
+		username: {
+			type: String,
+			required: true
+		},
+		password: {
+			type: String,
+			required: true
+		},
+		phoneNumber: {
+			type: Number,
+			required: true
+		}
 	})
 
-  return mongoose.model('pptarrs', ApiSchema)
+	return mongoose.model('User', UserSchema)
 }
