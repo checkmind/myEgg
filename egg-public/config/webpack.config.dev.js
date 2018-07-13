@@ -29,7 +29,7 @@ const publicPath = '/';
 const publicUrl = '';
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
-
+console.log(path.resolve(__dirname, '../src/Redux'))
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
@@ -104,7 +104,9 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      'images': path.resolve(__dirname, '../src/images')
+      'images': path.resolve(__dirname, '../src/images'),
+      'Action': path.resolve(__dirname, '../src/Redux/Action'),
+      '~': path.resolve(__dirname, '../src/Components')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

@@ -1,97 +1,55 @@
-'use strict';
-
-const Controller = require('egg').Controller;
-// 刷新数组的时间
-const interTime = 1000 * 60 * 60
-const maxInter = 3000
-let allMessage = []
-/* 暂时用setTime实现，每隔一小时刷新一次allMessage */
-setInterval(() => {
-	let now = new Date()
-	console.log(allMessage)
-	allMessage.map((val, index) => {
-		if ((now - val.time) >= maxInter) {
-			allMessage.splice(index, 1)
+const catchController = require('./catchController')
+const MD5 = require('blueimp-md5')
+class user extends catchController {
+	async singUser() {
+		let { username, password, phoneNumber, lover } = this.ctx.query
+		phoneNumber = +phoneNumber;
+		console.log(MD5(password, this.config.md5Key))
+		if (!lover)
+			lover = 10000;
+		if (!username || !password || !phoneNumber || !username.trim() || !password.trim()) {
+			this.fail('输入不能为空')
+			return;
 		}
-	})
-}, interTime)
-
-
-class user extends Controller {
-
-	async newUser(ctx) {
-		let {
+		let phone = await this.ctx.service.user.getByPhone(phoneNumber);
+		console.log(phone)
+		if (phone) {
+			this.fail('已注册过了')
+			return;
+		}
+		let it = await this.service.user.singUser({
 			username,
-			password,
-			code,
-			phoneNum
-		} = ctx
-		let statu = this._findCode(phoneNum)
-
-		switch (statu) {
-			case 0:
-				break;
-			case 1:
-				return ctx.body = {
-					statu: 0,
-					msg: '验证码失效'
-				}
-			default:
-				return ctx.body = {
-					statu: 0,
-					msg: '验证码错误或失效'
-				}
+			password: MD5(password, this.config.md5Key),
+			phoneNumber,
+			lover
+		});
+		if (!it) {
+			this.fail('注册失败')
+			return;
 		}
-		let trueCode = allMessage.find((val) => +val.phoneNum === +phoneNum).code
-		if (+trueCode !== +code) {
-			return ctx.body = {
-				statu: 0,
-				msg: '验证码错误'
-			}
-		}
-		ctx.body = await this.service.user.singUser(ctx.request.body)
+		this.success('注册成功')
 	}
 
-	async checkPhone(ctx) {
-		let phone = ctx.query.phoneNum
-		let now = new Date()
-		if (this._findCode(phone) === 0) {
-			ctx.body = {
-				code: 0,
-				msg: '60s后才能再次发送'
-			}
-			return
+	async login() {
+		let { username, password, phoneNumber } = this.ctx.query
+		const user = await this.service.user.getByPhone(phoneNumber);
+		if (!user) {
+			this.fail('无此用户')
+			return;
 		}
-		let random = this._random6()
-		allMessage.push({
-			phoneNum: phone,
-			code: random,
-			time: now
-		})
-		ctx.body = await this.service.user.checkPhone(random, phone)
+		if (user.password !== MD5(password, this.config.md5Key)) {
+			this.fail('密码错误')
+			return;
+		}
+		this.ctx.session = {
+			username,
+			phoneNumber
+		}
+		this.success('登陆成功')
 	}
 
-	/* 手机对应验证码状态 0 有效 1无效 2没有验证码 */
-	_findCode(phoneNum) {
-		let now = new Date()
-		let myPhone = allMessage.find((val) => +val.phoneNum === +phoneNum)
-		if (myPhone) {
-			// 没超过60s提示继续等待
-			if ((now - myPhone.time) <= maxInter) {
-				return 0
-				// 超过60s了就删掉allMessage信息,并重新发送
-			} else {
-				let index = allMessage.findIndex((val) => +val.phoneNum === +phoneNum)
-				allMessage.splice(index, 1)
-				return 1
-			}
-		}
-		return 2
-	}
-
-	/* 随机函数 */
-	_random6() {
-		return +[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => (Math.random() >= .5)).slice(0, 6).join('')
+	async loginOut() {
+		this.ctx.session = null;
 	}
 }
 

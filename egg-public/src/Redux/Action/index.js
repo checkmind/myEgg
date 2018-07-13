@@ -1,3 +1,5 @@
+import { getUrl, postUrl } from '../../util/fetch';
+
 export const IS_LOGIN = 'IS_LOGIN';  //是否登录
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -18,39 +20,40 @@ export const requestPosts = path => {
 }
 
 
-export const judgeLogin = isLogin=>{
-	return {
-		type: IS_LOGIN,
-		isLogin
-	}
+export const judgeLogin = isLogin => {
+  return {
+    type: IS_LOGIN,
+    isLogin
+  }
 }
 
 
 //获取数据成功
 export const receivePosts = (path, json) => {
   return {
-        type: RECEIVE_POSTS,
-        path,
-        json 
-    }
+    type: RECEIVE_POSTS,
+    path,
+    json
+  }
 }
 
-export const readConfig = (unread) =>{
+export const readConfig = (unread) => {
   return {
     type: UNREAD,
     unread
   }
 }
 // 备忘录列表
-export const mailListConfig = (payload)=>{
-  //console.log("get mail list")
+export const mailListConfig = (payload) => {
+  console.log("get mail list")
+  console.log(payload)
   return {
     type: MAILLIST,
     payload
   }
 }
 // 初始化备忘录列表
-export const mailListInit = (payload)=>{
+export const mailListInit = (payload) => {
   //console.log("get mail list")
   return {
     type: MAILLISTINIT,
@@ -58,7 +61,7 @@ export const mailListInit = (payload)=>{
   }
 }
 // 竹简内容
-export const mailWordsConfig = payload =>{
+export const mailWordsConfig = payload => {
   return {
     type: MAILWORDS,
     payload
@@ -69,25 +72,28 @@ export const mailWordsConfig = payload =>{
  * 得到备忘录列表
 **/
 export const getMailList = () => {
-  return dispatch=>{
-   // setTimeout(function(){
-      let items =[{
-                title: "记住出门带钥匙",
-                author: "杜浩",
-                id: 1,
-                timer : new Date().toString()
-            }];
-      dispatch(mailListInit([]))
-      dispatch(mailListConfig(items))
-  //  },500)
+  return async dispatch => {
+    let list = await getUrl('http://127.0.0.1:7001/getPoems')
+    dispatch(mailListInit([]))
+    dispatch(mailListConfig(list.data))
   }
 }
-
+/**
+ * 上传备忘录
+ */
+export const postMailList = () => {
+  return async dispatch => {
+    let list = await postUrl('http://127.0.0.1:7001/postPoems', {
+      name: 'dh'
+    })
+    return list;
+  }
+}
 /*
  * 得到竹简
 **/
-export const getMailWords = (id)=> {
+export const getMailWords = (id) => {
   return dispatch => {
-    dispatch(mailWordsConfig(['锄禾','李绅','锄禾日当午','汗滴禾下土','谁知盘中餐','粒粒皆辛苦']))
+    dispatch(mailWordsConfig(['锄禾', '李绅', '锄禾日当午', '汗滴禾下土', '谁知盘中餐', '粒粒皆辛苦']))
   }
 }

@@ -6,10 +6,13 @@
   "dependencies": {
     "@alicloud/sms-sdk": "^1.0.7",
     "babel-plugin-transform-async-to-module-method": "^6.24.1",
+    "blueimp-md5": "^2.10.0",
     "egg": "^2.0.0",
+    "egg-cors": "^2.0.0",
     "egg-mongoose": "^2.1.1",
     "egg-scripts": "^2.1.0",
     "egg-view-nunjucks": "^2.1.4",
+    "js-cookie": "^2.2.0",
     "lru-cache": "^4.1.2"
   },
   "devDependencies": {

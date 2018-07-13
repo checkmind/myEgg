@@ -8,13 +8,8 @@ class Api extends service {
 		code: 验证码
 		time: 创建时间
 	*/
-	async singUser(ctx) {
-		return (await this.ctx.model.User({
-			username: "duhao",
-			password: 123,
-			//password: md5(user.password, this.config.md5Key),
-			phoneNumber: 17826833487
-		}).save()).toObject()
+	async singUser(user) {
+		return (await this.ctx.model.User(user).save()).toObject()
 	}
 	/* 获取验证码 */
 	async checkPhone(random, phone) {
@@ -23,6 +18,11 @@ class Api extends service {
 			statu: 1,
 			msg: '短信已发到您的手机，请注意查收！'
 		}
+	}
+	getByPhone(phoneNumber) {
+		return this.ctx.model.User.findOne({
+			phoneNumber
+		}).lean()
 	}
 
 

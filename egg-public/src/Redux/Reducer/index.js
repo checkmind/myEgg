@@ -4,53 +4,63 @@ import { MAILLIST, MAILLISTINIT, MAILWORDS } from '../Action/index'
 import Immutable from 'immutable';
 
 
-const defaultlState = Immutable.fromJS({data: {}, isFetching: false})
+const defaultlState = Immutable.fromJS({ data: {}, isFetching: false })
 //首次渲染时获取数据
-export const fetchData = (state = defaultlState , action = {}) => {
-    switch(action.type){
+export const fetchData = (state = defaultlState, action = {}) => {
+    switch (action.type) {
         case REQUEST_POSTS:
-            return state.set('isFetching',true);
+            return state.set('isFetching', true);
         case RECEIVE_POSTS:
-            return Immutable.Map({'data':action.json,'isFetching':false});//返回一个新的state
+            return Immutable.Map({ 'data': action.json, 'isFetching': false });//返回一个新的state
         default:
             return state
     }
 }
 
-export const loginOrNot = (state = {}, action = {} )=>{
-    if(window.localStorage.isLogin){
+export const loginOrNot = (state = {}, action = {}) => {
+    if (window.localStorage.isLogin) {
         state['isLogin'] = true
         return state;
     }
-	switch(action.type){
-		case IS_LOGIN:
+    switch (action.type) {
+        case IS_LOGIN:
             return action.isLogin
-		default: 
-			return state
-	}
+        default:
+            return state
+    }
 }
-export const unRead = (state = 0, action = {} ) =>{
-    switch(action.type){
+export const unRead = (state = 0, action = {}) => {
+    switch (action.type) {
         case UNREAD:
             return action.unread;
         default:
             return state;
     }
 }
-export const mailList = ( state = [], action = {} ) => {
-    console.log("看看")
-    console.log(action)
-    switch(action.type){
+export const mailList = (state = [], action = {}) => {
+    switch (action.type) {
         case MAILLIST:
-            return [...state,...action.payload];
+            let a;
+            state.find((val, index) => {
+                if (+val.id === +action.payload[0].id) {
+                    a = index;
+                }
+            })
+            console.log('a 是', a)
+            if (typeof a === 'number') {
+                state[a] = action.payload[0]
+            } else {
+                state = [...state, ...action.payload]
+            }
+            return [...state];
         case MAILLISTINIT:
             return [];
         default:
             return state;
     }
 }
-export const mailWords = ( state=[], action={} ) =>{
-    switch(action.type){
+export const mailWords = (state = [], action = {}) => {
+    switch (action.type) {
         case MAILWORDS:
             return action.payload;
         default:

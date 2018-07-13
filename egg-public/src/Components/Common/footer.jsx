@@ -8,31 +8,31 @@ import {
 import '../../styles/footer.less'
 
 class Child extends Component {
-  constructor(props, context){
+  constructor(props, context) {
 
-    super(props, context);  
+    super(props, context);
   }
   render() {
     let classname = [];
-    let {unRead,page} = this.props;
+    let { unRead, page } = this.props;
     console.log(this.props)
     let unReadInf = ''
     classname[+page] = 'chooseLink';
-    if(!unRead)
+    if (!unRead)
       unReadInf = '';
-    else{
-      if(unRead>=99)
+    else {
+      if (unRead >= 99)
         unRead = '99+'
       unReadInf = <span>{unRead}</span>;
     }
+    // <Link to='/chatting' className={classname[1]}><p>雁书坊{unReadInf}</p></Link>
     return (<div className='footer'>
-    			<Link to='/timeLine' className={classname[0]}>追忆阁</Link>
-    			<Link to='/chatting' className={classname[1]}><p>雁书坊{unReadInf}</p></Link>
-    			<Link to='/index' className={classname[2]}>伏案</Link>
-    		</div>)
+      <Link to='/timeLine' className={classname[0]}>追忆阁</Link>
+      <Link to='/index' className={classname[2]}>伏案</Link>
+    </div>)
   }
   componentWillMount() {
-  	
+
   }
 }
 
