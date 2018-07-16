@@ -24,14 +24,14 @@ module.exports = appInfo => {
     defaultViewEngine: 'nunjucks',
   };
   config.security = {
-    domainWhiteList:['http://localhost:3001'],
+    domainWhiteList: ['http://localhost:3001'],
     csrf: {
       headerName: 'x-csrf-token', // 通过 header 传递 CSRF token 的默认字段为 x-csrf-token
     }
   }
-  config.cors = {
-    origin:'*',
-    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
-  }
+  // config.cors = {
+  //   origin:'*',
+  //   allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  // }
   return config;
 };

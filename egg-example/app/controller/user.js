@@ -2,12 +2,12 @@ const catchController = require('./catchController')
 const MD5 = require('blueimp-md5')
 class user extends catchController {
 	async singUser() {
-		let { username, password, phoneNumber, lover } = this.ctx.query
+		let { password, phoneNumber, lover } = this.ctx.query
 		phoneNumber = +phoneNumber;
 		console.log(MD5(password, this.config.md5Key))
 		if (!lover)
 			lover = 10000;
-		if (!username || !password || !phoneNumber || !username.trim() || !password.trim()) {
+		if (!password || !phoneNumber || !password.trim()) {
 			this.fail('输入不能为空')
 			return;
 		}
@@ -18,7 +18,6 @@ class user extends catchController {
 			return;
 		}
 		let it = await this.service.user.singUser({
-			username,
 			password: MD5(password, this.config.md5Key),
 			phoneNumber,
 			lover

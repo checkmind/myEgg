@@ -1,17 +1,17 @@
 import { IS_LOGIN, UNREAD } from '../Action/index'
 import { REQUEST_POSTS, RECEIVE_POSTS } from '../Action/index'
 import { MAILLIST, MAILLISTINIT, MAILWORDS } from '../Action/index'
-import Immutable from 'immutable';
+//import Immutable from 'immutable';
 
 
-const defaultlState = Immutable.fromJS({ data: {}, isFetching: false })
+//const defaultlState = Immutable.fromJS({ data: {}, isFetching: false })
 //首次渲染时获取数据
-export const fetchData = (state = defaultlState, action = {}) => {
+export const fetchData = (state = [], action = {}) => {
     switch (action.type) {
         case REQUEST_POSTS:
-            return state.set('isFetching', true);
+            return []
         case RECEIVE_POSTS:
-            return Immutable.Map({ 'data': action.json, 'isFetching': false });//返回一个新的state
+            return [...state, ...action.path];//返回一个新的state
         default:
             return state
     }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { template } from '../mixins/template'
 import { connect } from 'react-redux'
 import MyFoot from '../Components/Common/footer'
 import {
@@ -18,7 +17,8 @@ class TimeLine extends Component {
 		super(props, context);
 		this.state = {
 			"open": false,
-			"chooseId": null
+			"chooseId": null,
+			"mailWords": []
 		}
 	}
 	fillList = () => {
@@ -43,27 +43,29 @@ class TimeLine extends Component {
 			open: false
 		})
 	}
-	componentDidMount() {
-		const { dispatch } = this.props
-		dispatch(getMailList())
+	async componentDidMount() {
+		const { dispatch, fetchData } = this.props
+		await dispatch(getMailList())
 	}
 
 	render() {
 		let mailbody,
-			mailList = this.props.mailList;
+			mailList = this.props.fetchData;
 		if (this.state.open)
 			mailbody = <MailBody closeMail={this.closeMail} wordsArr={this.props.mailWords} chooseId={this.state.chooseId} />
 		return (
 			<div className="timeline">
 				<div className='bodyer'>
 					<div className='list'>
-						{mailList.map((val) => {
-							return (
-								<li key={val.id} onClick={() => this.openBook(val.content, val.id)}>
-									<p>{val.title}</p>
-									<p>{val.timer}</p>
-								</li>);
-						})}
+						{
+							mailList.map((val) => {
+								return (
+									<li key={val.id} onClick={() => this.openBook(val.content, val.id)}>
+										<p>{val.title}</p>
+										<p>{val.timer}</p>
+									</li>);
+							})
+						}
 					</div>
 					{mailbody}
 					<div className='btnGroup'>
@@ -76,12 +78,13 @@ class TimeLine extends Component {
 	}
 }
 function mapStateToProps(state) {
-	const { mailList, mailWords, unRead, mailWordsConfig } = state
+	const { mailList, mailWords, unRead, mailWordsConfig, fetchData } = state
 	return {
 		mailList,
 		mailWords,
 		unRead,
-		mailWordsConfig
+		mailWordsConfig,
+		fetchData
 	}
 }
 

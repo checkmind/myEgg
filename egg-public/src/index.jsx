@@ -14,7 +14,7 @@ import TimeLine from './view/TimeLine';
 import Chatting from './view/Chatting/Chatting'
 import EditBook from './view/EditBook'
 import Login from './view/Login'
-
+import Sing from './view/Sing'
 
 
 ReactDOM.render((
@@ -26,6 +26,7 @@ ReactDOM.render((
 				<Route path="/index" component={Main} />
 				<Route path="/editBook" component={EditBook} />
 				<Route path="/login" component={Login} />
+				<Route path="/sing" component={Sing} />
 			</div>
 		</Router>
 	</Provider>

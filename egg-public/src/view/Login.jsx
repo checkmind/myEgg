@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { template } from '../mixins/template'
-import UserName from '~/Common/userName.jsx'
-import UserPhone from '~/Common/userPhone.jsx'
+import { connect } from 'react-redux'
+import UserName from '~/userName.jsx'
+import UserPhone from '~/userPhone.jsx'
 import '../styles/module/login.less'
 
-class App extends Component {
+class Login extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -37,6 +37,15 @@ class App extends Component {
   }
 }
 
-export default template({
-  component: App
-});
+function mapStateToProps(state) {
+  const { mailList, mailWords, unRead, mailWordsConfig, fetchData } = state
+  return {
+    mailList,
+    mailWords,
+    unRead,
+    mailWordsConfig,
+    fetchData
+  }
+}
+
+export default connect(mapStateToProps)(Login)

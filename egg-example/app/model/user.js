@@ -4,8 +4,7 @@ module.exports = app => {
 	const { ObjectId } = mongoose.Schema.Types
 	const UserSchema = new Schema({
 		username: {
-			type: String,
-			required: true
+			type: String
 		},
 		password: {
 			type: String,

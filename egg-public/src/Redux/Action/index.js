@@ -68,14 +68,35 @@ export const mailWordsConfig = payload => {
   }
 }
 /* 异步方法 */
+/**
+ * 注册
+ */
+export const sing = (payload) => {
+  return async dispatch => {
+    console.log(payload)
+    let list = await getUrl('sing', payload)
+    return list
+  }
+}
+/**
+ * 登陆
+ */
+export const login = () => {
+  return async dispatch => {
+    let list = await getUrl('login')
+    dispatch(mailListConfig(list.data))
+  }
+}
 /*
  * 得到备忘录列表
 **/
 export const getMailList = () => {
   return async dispatch => {
-    let list = await getUrl('http://127.0.0.1:7001/getPoems')
-    dispatch(mailListInit([]))
-    dispatch(mailListConfig(list.data))
+    dispatch(requestPosts())
+    let list = await getUrl('getPoems')
+    // dispatch(mailListInit([]))
+    dispatch(receivePosts(list.data))
+    // dispatch(mailListConfig(list.data))
   }
 }
 /**
@@ -83,7 +104,7 @@ export const getMailList = () => {
  */
 export const postMailList = () => {
   return async dispatch => {
-    let list = await postUrl('http://127.0.0.1:7001/postPoems', {
+    let list = await postUrl('postPoems', {
       name: 'dh'
     })
     return list;

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { template } from '../mixins/template'
-
-import Myhead from '../Components/Common/header'
+import { connect } from 'react-redux'
 import MyFoot from '../Components/Common/footer'
-import Mybody from '../Components/Common/bodyer'
 
 import '../styles/module/main.less'
 
-class App extends Component {
+class Main extends Component {
   constructor(props, context) {
     super(props, context)
 
@@ -35,6 +32,15 @@ class App extends Component {
   }
 }
 
-export default template({
-  component: App
-});
+function mapStateToProps(state) {
+  const { mailList, mailWords, unRead, mailWordsConfig, fetchData } = state
+  return {
+    mailList,
+    mailWords,
+    unRead,
+    mailWordsConfig,
+    fetchData
+  }
+}
+
+export default connect(mapStateToProps)(Main)
