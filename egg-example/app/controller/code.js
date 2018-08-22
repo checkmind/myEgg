@@ -1,6 +1,4 @@
-'use strict';
-
-const Controller = require('egg').Controller;
+const catchController = require('./catchController')
 // 刷新数组的时间
 const interTime = 1000 * 60 * 60
 const maxInter = 3000
@@ -8,9 +6,9 @@ let allMessage = []
 
 
 
-class user extends Controller {
+class user extends catchController {
 
-	async newUser(ctx) {
+	async newUser() {
 		let {
 			username,
 			password,
@@ -30,15 +28,15 @@ class user extends Controller {
 	}
 
 	async checkPhone(ctx) {
-		let phone = ctx.query.phoneNum
+		let phone = ctx.query.phoneNum			
 		let key = 'password_' + phone
 		let random = this._random6()
-
+		if(!phone || phone.length !== 11) {
+			this.fail('请输入手机号')
+			return
+		}
 		if (this.service.cache.has(key)) {
-			ctx.body = {
-				code: 0,
-				msg: '60s后才能再次发送'
-			}
+			this.fail('60s后才能再次发送')
 			return
 		}
 		this.service.cache.create(key, random);

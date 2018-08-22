@@ -13,14 +13,15 @@ import Main from './view/Main';
 import TimeLine from './view/TimeLine';
 import Chatting from './view/Chatting/Chatting'
 import EditBook from './view/EditBook'
+import Base from './view/base'
 import Login from './view/Login'
 import Sing from './view/Sing'
-
 
 ReactDOM.render((
 	<Provider store={store}>
 		<Router>
 			<div className='Router'>
+				<Route path="/" component={Base}/>
 				<Route path="/timeLine" component={TimeLine} />
 				<Route path="/chatting" component={Chatting} />
 				<Route path="/index" component={Main} />

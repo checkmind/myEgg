@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import UserName from '~/userName.jsx'
 import UserPhone from '~/userPhone.jsx'
+import { login, getCode } from 'Action/index.js'
 import '../styles/module/login.less'
 
 class Login extends Component {
@@ -17,12 +18,26 @@ class Login extends Component {
       methods: !this.state.methods
     })
   }
+  async onLoginBtn(userInf) {
+    const { dispatch } = this.props
+    const res = await dispatch(login(userInf))
+    if (res.success) {
+      this.props.history.push('/index', null)
+    }
+  }
+  async onTapCode(userInf) {
+    const { dispatch } = this.props
+    const res = await dispatch(getCode(userInf))
+    if (res.success) {
+      this.props.history.push('/index', null)
+    }
+  }
   render() {
     let userMethods = null;
     if (this.state.methods) {
-      userMethods = (<UserName />)
+      userMethods = (<UserName chooseLoginBtn={(ev) => { this.onLoginBtn(ev) }} getCode={ev => {this.onTapCode(ev)}}/>)
     } else {
-      userMethods = (<UserPhone />)
+      userMethods = (<UserPhone chooseLoginBtn={(ev) => { this.onLoginBtn(ev) }}/>)
     }
     console.log(this.state.methods)
     console.log(userMethods)

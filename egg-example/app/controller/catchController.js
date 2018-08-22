@@ -22,6 +22,17 @@ class catchController extends Controller {
 			msg
 		}
 	}
+	checkLogin() {
+			return false
+		let {
+			username,
+			phoneNumber
+		} = this.ctx.session
+		console.log(username,phoneNumber)
+		if(username || phoneNumber)
+			return true
+		return false
+	}
 }
 
 module.exports = catchController;

@@ -24,7 +24,5 @@ class Api extends service {
 			phoneNumber
 		}).lean()
 	}
-
-
 }
 module.exports = Api

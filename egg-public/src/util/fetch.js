@@ -23,18 +23,28 @@ export async function getUrl(url, data) {
   }).then(function (response) {
     return response.text()
   });
-  return JSON.parse(json);
+  let rsp = JSON.parse(json)
+  if(!rsp.success)
+    alert(rsp.msg)
+  return rsp
 }
 export async function postUrl(url, data) {
+  console.log(JSON.stringify(data))
   url = `http://127.0.0.1:7001/${url}`
   let json = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify(data) || ''
+    body: JSON.stringify(data)
   }).then(function (response) {
+    if(!response.success) {
+      alert(response.msg)
+    }
     return response.text()
   });
-  return JSON.parse(json);
+  let rsp = JSON.parse(json);
+  if(!rsp.success) 
+    alert(rsp.msg)
+  return rsp
 }

@@ -2,6 +2,12 @@ const catchController = require('./catchController')
 const MD5 = require('blueimp-md5')
 class user extends catchController {
   async getPoems() {
+    console.log(this.checkLogin())
+    if(!this.checkLogin()) {
+      this.fail('未登录')
+      return;
+    }
+    let { id } = this.ctx.query
     this.success([{
       title: '你好',
       id: '23232323',
@@ -18,6 +24,12 @@ class user extends catchController {
                 于嗟阔兮不我活兮 
                 于嗟洵兮不我信兮`
     }])
+  }
+  async postPoems() {
+    // let {
+    //   content
+    // }
+    console.log(this.ctx.request.body);
   }
 
 }

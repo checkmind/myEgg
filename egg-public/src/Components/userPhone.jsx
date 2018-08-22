@@ -31,6 +31,14 @@ class userPhone extends React.Component {
     this.setState({ password: e.target.value });
   }
 
+  onCick() {
+    console.log("点击了登陆按钮")
+    this.props.chooseLoginBtn({
+      phoneNumber: this.state.phoneNumber,
+      password: this.state.password
+    })
+  }
+
   render() {
     return (
       <form>
@@ -57,7 +65,7 @@ class userPhone extends React.Component {
           <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
       good.</Alert>
         <ButtonToolbar className='btn-between'>
-          <Button bsStyle="primary" className='loginBtn'>登陆</Button>
+          <Button bsStyle="primary" className='loginBtn' onClick={() => { this.onCick() }}>登陆</Button>
         </ButtonToolbar>
       </form>
     );

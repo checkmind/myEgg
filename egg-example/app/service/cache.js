@@ -2,7 +2,7 @@
  * 
  */
 const LRU = require('lru-cache')
-const DEFAULT_MAX_AGE = 1 * 1000
+const DEFAULT_MAX_AGE = 60 * 1000
 const options = {
   max: 500,
   // length: function (n, key) { return n * 2 + key.length },

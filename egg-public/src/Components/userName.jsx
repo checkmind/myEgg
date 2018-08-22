@@ -9,7 +9,7 @@ class userName extends React.Component {
 
     this.state = {
       phoneNumber: '',
-      password: ''
+      code: ''
     };
   }
 
@@ -28,16 +28,26 @@ class userName extends React.Component {
 
 
   handleChangePsw(e) {
-    this.setState({ password: e.target.value });
+    this.setState({ code: e.target.value });
   }
 
+  onCick() {
+    this.props.chooseLoginBtn({
+      phoneNumber: this.state.phoneNumber,
+      code: this.state.code
+    })
+  }
+  onTapCode() {
+    this.props.getCode({
+      phoneNum: this.state.phoneNumber
+    })
+  }
   render() {
     return (
       <form>
         <FormGroup
           controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
+          validationState={this.getValidationState()}>
           <ControlLabel>请输入手机号</ControlLabel>
           <FormControl
             type="text"
@@ -48,7 +58,7 @@ class userName extends React.Component {
           <ControlLabel>请输入验证码</ControlLabel>
           <FormControl
             type="text"
-            value={this.state.password}
+            value={this.state.code}
             placeholder=""
             onChange={this.handleChangePsw}
           />
@@ -57,8 +67,8 @@ class userName extends React.Component {
           <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
       good.</Alert>
         <ButtonToolbar className='btn-between'>
-          <Button bsStyle="primary">获取验证码</Button>
-          <Button bsStyle="primary">登陆</Button>
+          <Button bsStyle="primary" onClick={()=>{ this.onTapCode() }}>获取验证码</Button>
+          <Button bsStyle="primary" onClick={() => { this.onCick() }}>登陆</Button>
         </ButtonToolbar>
       </form>
     );

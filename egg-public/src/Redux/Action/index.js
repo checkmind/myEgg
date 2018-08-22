@@ -81,10 +81,18 @@ export const sing = (payload) => {
 /**
  * 登陆
  */
-export const login = () => {
+export const login = (payload) => {
   return async dispatch => {
-    let list = await getUrl('login')
-    dispatch(mailListConfig(list.data))
+    let list = await getUrl('login',payload)
+    return list
+  }
+}
+/**
+ * 获取验证码
+ */
+export const getCode = payload => {
+  return async dispatch => {
+    return await getUrl('getCode',payload)
   }
 }
 /*

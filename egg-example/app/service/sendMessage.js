@@ -12,8 +12,8 @@ class Api extends service {
 	 send(phone, random) {
 		//初始化sms_client
 		console.log(phone,random)
-		return;
 		let smsClient = new SMSClient({accessKeyId, secretAccessKey})
+		return
 		//发送短信
 		return smsClient.sendSMS({
 		    PhoneNumbers: phone,

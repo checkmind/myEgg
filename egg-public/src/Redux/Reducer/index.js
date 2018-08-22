@@ -46,10 +46,11 @@ export const mailList = (state = [], action = {}) => {
                     a = index;
                 }
             })
-            console.log('a 是', a)
             if (typeof a === 'number') {
                 state[a] = action.payload[0]
             } else {
+                console.log(action)
+                console.log(action.payload)
                 state = [...state, ...action.payload]
             }
             return [...state];

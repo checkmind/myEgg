@@ -1,10 +1,9 @@
-const catchController = require('./catchController')
+const CatchController = require('./catchController')
 const MD5 = require('blueimp-md5')
-class user extends catchController {
+class user extends CatchController {
 	async singUser() {
 		let { password, phoneNumber, lover } = this.ctx.query
 		phoneNumber = +phoneNumber;
-		console.log(MD5(password, this.config.md5Key))
 		if (!lover)
 			lover = 10000;
 		if (!password || !phoneNumber || !password.trim()) {
@@ -12,7 +11,6 @@ class user extends catchController {
 			return;
 		}
 		let phone = await this.ctx.service.user.getByPhone(phoneNumber);
-		console.log(phone)
 		if (phone) {
 			this.fail('已注册过了')
 			return;
@@ -30,25 +28,38 @@ class user extends catchController {
 	}
 
 	async login() {
-		let { username, password, phoneNumber } = this.ctx.query
+		let { username, password, phoneNumber ,code} = this.ctx.query
 		const user = await this.service.user.getByPhone(phoneNumber);
 		if (!user) {
 			this.fail('无此用户')
 			return;
 		}
-		if (user.password !== MD5(password, this.config.md5Key)) {
+		if(!code || !user.password) {
+			this.fail('未填写密码或者短信验证码')
+		}
+		if (!code && user.password !== MD5(password, this.config.md5Key)) {
 			this.fail('密码错误')
 			return;
+		}
+		if(code) {
+			let key = 'password_' + phoneNumber
+			// 验证code
+			if(this.service.cache.has(key) !== code) {
+				this.fail('验证码错误')
+			}
 		}
 		this.ctx.session = {
 			username,
 			phoneNumber
 		}
+		this.ctx.rotateCsrfSecret();
 		this.success('登陆成功')
+		//this.redirect('/index')
 	}
 
 	async loginOut() {
 		this.ctx.session = null;
+		this.success('登出成功')
 	}
 }
 
