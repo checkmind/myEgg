@@ -23,7 +23,6 @@ class catchController extends Controller {
 		}
 	}
 	checkLogin() {
-			return false
 		let {
 			username,
 			phoneNumber
