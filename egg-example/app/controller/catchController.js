@@ -28,6 +28,7 @@ class catchController extends Controller {
 			phoneNumber
 		} = this.ctx.session
 		console.log(username,phoneNumber)
+		return true
 		if(username || phoneNumber)
 			return true
 		return false

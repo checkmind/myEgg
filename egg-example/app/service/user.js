@@ -3,11 +3,6 @@ const maxInter = 60 * 1000
 
 
 class Api extends service {
-	/*** 暂时存放手机号码和验证码，失效时间为一分钟
-		phoneNum: 手机号
-		code: 验证码
-		time: 创建时间
-	*/
 	async singUser(user) {
 		return (await this.ctx.model.User(user).save()).toObject()
 	}

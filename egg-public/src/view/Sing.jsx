@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserSing from '~/userSing.jsx'
 import { connect } from 'react-redux'
-import { sing } from 'Action/index.js'
+import { sing, getCode } from 'Action/index.js'
 import '../styles/module/login.less'
 
 class SingPage extends Component {
@@ -23,10 +23,17 @@ class SingPage extends Component {
     return (
       <div className="App">
         <div className="container">
-          <UserSing chooseSingBtn={(ev) => { this.onSingBtn(ev) }} />
+          <UserSing chooseSingBtn={(ev) => { this.onSingBtn(ev) }} getCode={ev => {this.onTapCode(ev)}}/>
         </div>
       </div>
     );
+  }
+  async onTapCode(userInf) {
+    const { dispatch } = this.props
+    const res = await dispatch(getCode(userInf))
+    if (res.success) {
+      this.props.history.push('/index', null)
+    }
   }
 }
 

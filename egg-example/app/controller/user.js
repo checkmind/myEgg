@@ -52,7 +52,8 @@ class user extends CatchController {
 			username,
 			phoneNumber
 		}
-		this.ctx.rotateCsrfSecret();
+		console.log(this.ctx.session)
+		//his.ctx.rotateCsrfSecret();
 		this.success('登陆成功')
 		//this.redirect('/index')
 	}

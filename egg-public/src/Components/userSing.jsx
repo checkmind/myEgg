@@ -44,6 +44,11 @@ class userName extends React.Component {
       checkCode: this.state.checkCode
     });
   }
+  onTapCode() {
+    this.props.getCode({
+      phoneNum: this.state.phoneNumber
+    })
+  }
   render() {
     return (
       <form>
@@ -77,6 +82,7 @@ class userName extends React.Component {
           <strong>Holy guacamole!</strong> Best check yo self, you're not looking too
       good.</Alert>
         <ButtonToolbar className='btn-between'>
+          <Button bsStyle="primary" onClick={()=>{ this.onTapCode() }}>获取验证码</Button>
           <Button bsStyle="primary" className='loginBtn' onClick={() => { this.onCick() }}>注册</Button>
         </ButtonToolbar>
       </form>

@@ -103,7 +103,7 @@ export const getMailList = () => {
     dispatch(requestPosts())
     let list = await getUrl('getPoems')
     // dispatch(mailListInit([]))
-    dispatch(receivePosts(list.data))
+    dispatch(mailListConfig(list.data))
     // dispatch(mailListConfig(list.data))
   }
 }

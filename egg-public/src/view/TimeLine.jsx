@@ -44,13 +44,13 @@ class TimeLine extends Component {
 		})
 	}
 	async componentDidMount() {
-		const { dispatch, fetchData } = this.props
+		const { dispatch, mailList } = this.props
 		await dispatch(getMailList())
 	}
 
 	render() {
 		let mailbody,
-			mailList = this.props.fetchData;
+			mailList = this.props.mailList;
 		if (this.state.open)
 			mailbody = <MailBody closeMail={this.closeMail} wordsArr={this.props.mailWords} chooseId={this.state.chooseId} />
 		return (
@@ -78,13 +78,12 @@ class TimeLine extends Component {
 	}
 }
 function mapStateToProps(state) {
-	const { mailList, mailWords, unRead, mailWordsConfig, fetchData } = state
+	const { mailList, mailWords, unRead, mailWordsConfig } = state
 	return {
 		mailList,
 		mailWords,
 		unRead,
-		mailWordsConfig,
-		fetchData
+		mailWordsConfig
 	}
 }
 

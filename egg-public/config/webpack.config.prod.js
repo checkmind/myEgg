@@ -37,7 +37,8 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
-
+console.log('public 路径')
+console.log(publicUrl)
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
@@ -112,8 +113,8 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
-      '@': path.resolve(__dirname, '../src/Components'),
-      '~': path.resolve(__dirname, '../src/Redux')
+      'Action': path.resolve(__dirname, '../src/Redux/Action'),
+      '~': path.resolve(__dirname, '../src/Components')
     }
   },
   plugins: [
@@ -263,6 +264,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      filename: '../view/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -341,6 +343,7 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      stripPrefix: 'public',
     }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical

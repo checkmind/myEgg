@@ -11,6 +11,7 @@ export const fetchData = (state = [], action = {}) => {
         case REQUEST_POSTS:
             return []
         case RECEIVE_POSTS:
+            console.log(action.path)
             return [...state, ...action.path];//返回一个新的state
         default:
             return state
@@ -41,6 +42,9 @@ export const mailList = (state = [], action = {}) => {
     switch (action.type) {
         case MAILLIST:
             let a;
+            console.log("展示 ")
+            console.log(state)
+            console.log(action.payload[0])
             state.find((val, index) => {
                 if (+val.id === +action.payload[0].id) {
                     a = index;
