@@ -110,11 +110,10 @@ export const getMailList = () => {
 /**
  * 上传备忘录
  */
-export const postMailList = () => {
+export const postMailList = payload => {
+  console.log()
   return async dispatch => {
-    let list = await postUrl('postPoems', {
-      name: 'dh'
-    })
+    let list = await postUrl('postPoems', payload)
     return list;
   }
 }

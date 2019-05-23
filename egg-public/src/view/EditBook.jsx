@@ -27,7 +27,7 @@ class EditBook extends Component {
 			obj.id = this.state.chooseId || Math.floor(Math.random() * 10000);
 			obj.content = str;
 			console.log('changewords')
-			dispatch(postMailList([obj], this.state.chooseId))
+			dispatch(postMailList(obj, this.state.chooseId))
 		}
 		this.saveWords = () => {
 			this.changeWords();

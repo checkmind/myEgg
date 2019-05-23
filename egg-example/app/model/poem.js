@@ -19,7 +19,7 @@ module.exports = app => {
 			required: true
 		}
 	}, {
-			collection: 'poem'
+			collection: 'Poem'
 		})
-	return mongoose.model('poem', ApiSchema)
+	return mongoose.model('Poem', ApiSchema)
 }

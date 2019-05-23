@@ -23,10 +23,12 @@ export async function getUrl(url, data) {
   }).then(function (response) {
     return response.text()
   });
-  let rsp = JSON.parse(json)
-  if(!rsp.success)
-    alert(rsp.msg)
-  return rsp
+  try {
+    let rsp = JSON.parse(json);
+    return rsp
+  } catch(e) {
+    console.log(e)
+  }
 }
 export async function postUrl(url, data) {
   console.log(JSON.stringify(data))
@@ -43,8 +45,13 @@ export async function postUrl(url, data) {
     }
     return response.text()
   });
-  let rsp = JSON.parse(json);
-  if(!rsp.success) 
-    alert(rsp.msg)
-  return rsp
+  try {
+    if(!json)
+      return
+    let rsp = JSON.parse(json);
+    return rsp
+  } catch(e) {
+    console.log(e)
+  }
+  
 }

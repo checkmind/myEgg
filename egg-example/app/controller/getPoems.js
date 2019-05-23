@@ -26,10 +26,7 @@ class user extends catchController {
     }])
   }
   async postPoems() {
-    // let {
-    //   content
-    // }
-    console.log(this.ctx.request.body);
+    const {content, title, timer} = this.ctx.request.body
   }
 
 }
